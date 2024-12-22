@@ -1,14 +1,16 @@
 module SystemInfo
     def self.battery_level
-        command = "upower -i $(upower -e | grep BAT) | grep 'percentage' | awk '{print $2}'"
-        level = `#{command}`.strip
+        command = "upower -i $(upower -e)"
+        output = `#{command}`.strip
     
-        if level.empty?
-        puts ">>> Battery information not available."
+        if output.empty?
+        puts '>>> Power information not available.'
         return nil
         else
-        puts ">>> Laptop Battery Level: #{level}"
-        return level
+        puts '>>> Power Status Report:'
+        puts '>>> via - upower -i $(upower -e)'
+        puts "#{output}"
+        return output
         end
     end
 end

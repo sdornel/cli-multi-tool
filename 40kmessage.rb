@@ -20,6 +20,7 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts '  40kmessage -t -mec                   # Adeptus Mechanicus quote'
     puts '  40kmessage -t -ork                   # Ork quote'
     puts '  40kmessage -t -dme                   # Dark Mechanicum quote'
+    puts '  40kmessage -power                    # Power Status Report'
     exit
 end
 
@@ -38,7 +39,7 @@ if ARGV[0] == '-t' # t = thought for the day
     end
 else
     puts '+++ TRANSMISSION INBOUND +++'
-    puts "+++ ORIGIN: SYSTEM MONITORING NODE PRIMUS-#{rand(1..100000000)} +++"
+    puts "+++ ORIGIN: SYSTEM MONITORING NODE PRIMUS-#{rand(1..10000000)} +++"
     puts '+++ AUTHORIZATION KEY: ████-███-SERPENS-███-ALPHA-███-OMEGA +++'
 
     puts ImperialDate.calculate_date()
@@ -46,9 +47,13 @@ else
     puts '+++ RECIPIENT: ██ ██ ██ [REDACTED] +++'
     puts ''
     # useful info goes here
-    SystemInfo.battery_level
+    # another switch statement?
+    if ARGV[0] == '-power'
+        SystemInfo.battery_level
+    end
+
     puts ''
-    puts "RELAYING TRANSMISSION VIA: ASTROPATHIC DUCT ALPHA-PRIMUS-#{rand(1..100000000)}"
+    puts "RELAYING TRANSMISSION VIA: ASTROPATHIC DUCT ALPHA-PRIMUS-#{rand(1..10000000)}"
     puts "+++ #{ALL_QUOTES.sample} +++"
     puts '+++ TRANSMISSION TERMINATED +++'
 end
