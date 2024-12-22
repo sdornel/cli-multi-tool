@@ -41,7 +41,9 @@ else
     puts '+++ TRANSMISSION INBOUND +++'
     puts "+++ ORIGIN: SYSTEM MONITORING NODE PRIMUS-#{rand(1..10000000)} +++"
     puts '+++ AUTHORIZATION KEY: ████-███-SERPENS-███-ALPHA-███-OMEGA +++'
-
+    puts "+++ RELAYING TRANSMISSION VIA: ASTROPATHIC DUCT ALPHA-PRIMUS-#{rand(1..10000000)} +++"
+    puts ''
+    puts "---------------------------------------------------------------------"
     puts ImperialDate.calculate_date()
     puts ImperialDate.time_stamp()
     puts '+++ RECIPIENT: ██ ██ ██ [REDACTED] +++'
@@ -50,10 +52,12 @@ else
     # another switch statement?
     if ARGV[0] == '-power'
         SystemInfo.battery_level
+    elsif ARGV[0] == '-temp'
+        SystemInfo.temperature
     end
 
+    puts "---------------------------------------------------------------------"
     puts ''
-    puts "RELAYING TRANSMISSION VIA: ASTROPATHIC DUCT ALPHA-PRIMUS-#{rand(1..10000000)}"
     puts "+++ #{ALL_QUOTES.sample} +++"
     puts '+++ TRANSMISSION TERMINATED +++'
 end
