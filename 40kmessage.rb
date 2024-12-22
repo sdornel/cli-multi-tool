@@ -47,6 +47,6 @@ else
 
     puts ''
     puts "RELAYING TRANSMISSION VIA: ASTROPATHIC DUCT ALPHA-PRIMUS-#{rand(1..100000000)}"
-    puts '+++ #{ALL_QUOTES.sample} +++'
+    puts "+++ #{ALL_QUOTES.sample} +++"
     puts '+++ TRANSMISSION TERMINATED +++'
 end
