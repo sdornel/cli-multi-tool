@@ -37,7 +37,7 @@ if ARGV[0] == '-t' # t = thought for the day
     end
 else
     puts '+++ TRANSMISSION INBOUND +++'
-    puts '+++ ORIGIN: SYSTEM MONITORING NODE PRIMUS-#{rand(1..100000000)} +++'
+    puts "+++ ORIGIN: SYSTEM MONITORING NODE PRIMUS-#{rand(1..100000000)} +++"
     puts '+++ AUTHORIZATION KEY: ████-███-SERPENS-███-ALPHA-███-OMEGA +++'
 
     puts ImperialDate.calculate_date()
@@ -46,7 +46,7 @@ else
     puts ''
 
     puts ''
-    puts 'RELAYING TRANSMISSION VIA: ASTROPATHIC DUCT ALPHA-PRIMUS-#{rand(1..100000000)}'
+    puts "RELAYING TRANSMISSION VIA: ASTROPATHIC DUCT ALPHA-PRIMUS-#{rand(1..100000000)}"
     puts '+++ #{ALL_QUOTES.sample} +++'
     puts '+++ TRANSMISSION TERMINATED +++'
 end
