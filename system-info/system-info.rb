@@ -15,7 +15,7 @@ module SystemInfo
     end
 
     def self.temperature
-        command = "sensors"
+        command = "sensors" # could be more efficient but this will help me learn the commands
         output = `#{command}`
     
         if output.empty?
