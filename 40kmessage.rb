@@ -6,6 +6,7 @@ require_relative 'quotes/dark_mechanicum'
 require_relative 'quotes/imperium'
 require_relative 'quotes/ork'
 require_relative 'helpers/imperial_date'
+require_relative 'system-info/system-info'
 
 ALL_QUOTES = IMPERIUM_QUOTES + ADEPTUS_MECHANICUS_QUOTES + ORK_QUOTES + DARK_MECHANICUM_QUOTES
 
@@ -44,7 +45,8 @@ else
     puts ImperialDate.time_stamp()
     puts '+++ RECIPIENT: ██ ██ ██ [REDACTED] +++'
     puts ''
-
+    # useful info goes here
+    SystemInfo.battery_level
     puts ''
     puts "RELAYING TRANSMISSION VIA: ASTROPATHIC DUCT ALPHA-PRIMUS-#{rand(1..100000000)}"
     puts "+++ #{ALL_QUOTES.sample} +++"
