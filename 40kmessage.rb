@@ -20,6 +20,7 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts '  40kmessage -t -mec                   # Adeptus Mechanicus quote'
     puts '  40kmessage -t -ork                   # Ork quote'
     puts '  40kmessage -t -dme                   # Dark Mechanicum quote'
+    puts '  40kmessage -t                        # Random 40k quote from list'
     puts '  40kmessage -power                    # Power Status Report'
     exit
 end
@@ -27,13 +28,13 @@ end
 if ARGV[0] == '-t' # t = thought for the day
     case ARGV[1]
     when '-imp'
-        puts IMPERIUM_QUOTES.sample
+        puts '+++ ' + IMPERIUM_QUOTES.sample + ' +++'
     when '-mec'
-        puts ADEPTUS_MECHANICUS_QUOTES.sample
+        puts '+++ ' + ADEPTUS_MECHANICUS_QUOTES.sample + ' +++'
     when '-ork'
-        puts ORK_QUOTES.sample
+        puts '+++ ' + ORK_QUOTES.sample + ' +++'
     when '-dme'
-        puts DARK_MECHANICUM_QUOTES.sample
+        puts '+++ ' + DARK_MECHANICUM_QUOTES.sample + ' +++'
     else
         puts '+++ THOUGHT FOR THE DAY: ' + ALL_QUOTES.sample + ' +++'
     end
@@ -42,11 +43,11 @@ else
     puts "+++ ORIGIN: SYSTEM MONITORING NODE PRIMUS-#{rand(1..10000000)} +++"
     puts '+++ AUTHORIZATION KEY: ████-███-SERPENS-███-ALPHA-███-OMEGA +++'
     puts "+++ RELAYING TRANSMISSION VIA: ASTROPATHIC DUCT ALPHA-PRIMUS-#{rand(1..10000000)} +++"
-    puts ''
-    puts "---------------------------------------------------------------------"
     puts ImperialDate.calculate_date()
     puts ImperialDate.time_stamp()
     puts '+++ RECIPIENT: ██ ██ ██ [REDACTED] +++'
+    puts ''
+    puts "---------------------------------------------------------------------"
     puts ''
     # useful info goes here
     # another switch statement?
@@ -58,6 +59,6 @@ else
 
     puts "---------------------------------------------------------------------"
     puts ''
-    puts "+++ #{ALL_QUOTES.sample} +++"
+    puts "+++ THOUGHT FOR THE DAY: #{ALL_QUOTES.sample} +++"
     puts '+++ TRANSMISSION TERMINATED +++'
 end
