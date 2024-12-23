@@ -22,7 +22,7 @@ module SystemInfo
           puts ">>> Temperature information not available."
           return nil
         else
-          puts ">>> Full Sensors Report:"
+          puts ">>> Temperature Report:"
           puts ">>> via sensors"
           puts output
           return output

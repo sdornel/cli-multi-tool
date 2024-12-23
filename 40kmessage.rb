@@ -22,6 +22,7 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts '  40kmessage -t -dme                   # Dark Mechanicum quote'
     puts '  40kmessage -t                        # Random 40k quote from list'
     puts '  40kmessage -power                    # Power Status Report'
+    puts '  40kmessage -temp                     # Temperature Report'
     exit
 end
 
