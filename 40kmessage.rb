@@ -23,6 +23,7 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts '  40kmessage -t                        # Random 40k quote from list'
     puts '  40kmessage -power                    # Power Status Report'
     puts '  40kmessage -temp                     # Temperature Report'
+    puts '  40kmessage -scrapcode                # Temperature Report'
     exit
 end
 
@@ -56,7 +57,7 @@ else
         SystemInfo.battery_level
     elsif ARGV[0] == '-temp'
         SystemInfo.temperature
-    else # make it an override option?
+    elsif ARGV[0] == '-scrapcode'
         puts '>>> [Binary chatter detected... Fragments reassembled...] <<<'
         puts '+++ AUTHORIZA∑∑⍉ΞΨ█TION: MΞCHΔN!CVM-NU∑∑L++█'
         sleep 0.5
@@ -69,6 +70,8 @@ else
         puts '+++ ARCHIVE PURGE: FΔ!LURΞ [SCRAPCODE OVERRIDE] +++'
         sleep 0.5
         puts '>>> 01101000 01100101 01101100 01110000 <<<'
+    else
+        '+++ INVALID CHOICE +++'
     end
     puts ''
     puts "---------------------------------------------------------------------"
