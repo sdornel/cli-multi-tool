@@ -65,7 +65,7 @@ else
     elsif ARGV[0] == '-gs'
         if ARGV[1] == '-ir'
             puts "hi"
-            CheckInactiveRepos.fetch_repositories
+            CheckInactiveRepos.display_specific_inactive_repos
         end
 
     elsif ARGV[0] == '-scrapcode'
