@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+require 'bundler/setup'
+Bundler.require
 
 require_relative 'quotes/imperium'
 require_relative 'quotes/mechanicus'
@@ -6,7 +8,8 @@ require_relative 'quotes/dark_mechanicum'
 require_relative 'quotes/imperium'
 require_relative 'quotes/ork'
 require_relative 'helpers/imperial_date'
-require_relative 'system-info/system-info'
+require_relative 'system_info/system_info'
+require_relative 'git_repositories/check_inactive_repos'
 require_relative 'scrapcode'
 
 ALL_QUOTES = IMPERIUM_QUOTES + ADEPTUS_MECHANICUS_QUOTES + ORK_QUOTES + DARK_MECHANICUM_QUOTES
@@ -58,6 +61,12 @@ else
         SystemInfo.battery_level
     elsif ARGV[0] == '-temp'
         SystemInfo.temperature
+    elsif ARGV[0] == '-cr'
+        if ARGV[1] == '-s'
+            puts "hi"
+            CheckInactiveRepos.fetch_repositories
+        end
+
     elsif ARGV[0] == '-scrapcode'
         Scrapcode.scrapcode
     else
