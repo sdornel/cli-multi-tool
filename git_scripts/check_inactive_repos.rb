@@ -29,6 +29,7 @@ module CheckInactiveRepos
         puts self.fetch_specific_inactive_repos
     end
 
+    # displays inactive repos (>= 365 days without updates from specific list)
     def self.fetch_specific_inactive_repos()
         target_repos = {
             '1904-text-searcher' => true,
