@@ -20,6 +20,7 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts 'Usage:'
     puts '  40kmessage                           # Show a transmission followed by a random quote'
     puts '  40kmessage --help || 40kmessage -h   # Display this help message'
+    puts '  40kmessage -gs -ir                   # Display repos not updated in >= 1 year. Repos come from list in the CheckInactiveRepos module'
     puts '  40kmessage -t -imp                   # Imperium quote'
     puts '  40kmessage -t -mec                   # Adeptus Mechanicus quote'
     puts '  40kmessage -t -ork                   # Ork quote'
@@ -61,8 +62,8 @@ else
         SystemInfo.battery_level
     elsif ARGV[0] == '-temp'
         SystemInfo.temperature
-    elsif ARGV[0] == '-cr'
-        if ARGV[1] == '-s'
+    elsif ARGV[0] == '-gs'
+        if ARGV[1] == '-ir'
             puts "hi"
             CheckInactiveRepos.fetch_repositories
         end
