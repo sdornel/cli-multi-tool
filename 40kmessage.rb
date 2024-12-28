@@ -9,7 +9,7 @@ require_relative 'quotes/imperium'
 require_relative 'quotes/ork'
 require_relative 'helpers/imperial_date'
 require_relative 'system_info/system_info'
-require_relative 'git_repositories/check_inactive_repos'
+require_relative 'git_scripts/check_inactive_repos'
 require_relative 'scrapcode'
 
 ALL_QUOTES = IMPERIUM_QUOTES + ADEPTUS_MECHANICUS_QUOTES + ORK_QUOTES + DARK_MECHANICUM_QUOTES
