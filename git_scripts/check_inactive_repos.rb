@@ -26,11 +26,17 @@ module CheckInactiveRepos
     @client = Octokit::Client.new(access_token: GITHUB_TOKEN)
 
     def self.display_specific_inactive_repos
-        puts self.fetch_specific_inactive_repos
+        puts self.fetch_inactive_repos(true)
     end
 
-    # displays inactive repos (>= 365 days without updates from specific list)
-    def self.fetch_specific_inactive_repos
+    def self.display_inactive_repos()
+        puts self.fetch_inactive_repos(false)
+    end
+
+    # displays inactive repos (>= 365 days without updates)
+    # if "specific" flag set to true it only checks target_repos
+    def self.fetch_inactive_repos(specific)
+        puts specific
         target_repos = {
             '1904-text-searcher' => true,
             'fred-plumbing-heating' => true,
@@ -46,14 +52,19 @@ module CheckInactiveRepos
         # nil means fetch for currently authenticated user
         repos = @client.repositories(nil, type: 'all')
         filtered_repos = repos.each_with_object([]) do |repo, result|
-            # check if repo is included in hashmap and see if it was last updated at least 1 year ago
-            if target_repos[repo.name] && repo.pushed_at && repo.pushed_at <= Time.now.utc - (365 * 24 * 60 * 60)
-                result << {
-                    name: repo.full_name,
-                    url: repo.html_url,
-                    last_update: repo.pushed_at
-                }
+            # skip if pushed to less than 1 year ago
+            next unless repo.pushed_at && repo.pushed_at <= Time.now.utc - (365 * 24 * 60 * 60)
+
+            # if "specific" skip everything that is not in target_repos hash
+            if specific
+                next unless target_repos[repo.name]
             end
+
+            result << {
+                name: repo.full_name,
+                url: repo.html_url,
+                last_update: repo.pushed_at
+            }
         end
 
         return filtered_repos

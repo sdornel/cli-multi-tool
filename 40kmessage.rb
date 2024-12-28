@@ -20,7 +20,8 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts 'Usage:'
     puts '  40kmessage                           # Show a transmission followed by a random quote'
     puts '  40kmessage --help || 40kmessage -h   # Display this help message'
-    puts '  40kmessage -gs -ir                   # Display repos not updated in >= 1 year. Repos come from list in the CheckInactiveRepos module'
+    puts '  40kmessage -gs -sir                  # Display specific repos not updated in >= 1 year. List is in CheckInactiveRepos module'
+    puts '  40kmessage -gs -ir                   # Display all repos not updated in >= 1 year'
     puts '  40kmessage -t -imp                   # Imperium quote'
     puts '  40kmessage -t -mec                   # Adeptus Mechanicus quote'
     puts '  40kmessage -t -ork                   # Ork quote'
@@ -63,9 +64,10 @@ else
     elsif ARGV[0] == '-temp'
         SystemInfo.temperature
     elsif ARGV[0] == '-gs'
-        if ARGV[1] == '-ir'
-            puts "hi"
+        if ARGV[1] == '-sir'
             CheckInactiveRepos.display_specific_inactive_repos
+        elsif ARGV[1] == 'ir'
+            CheckInactiveRepos.display_inactive_repos
         end
 
     elsif ARGV[0] == '-scrapcode'
