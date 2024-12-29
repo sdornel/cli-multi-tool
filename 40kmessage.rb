@@ -22,6 +22,8 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts '  40kmessage --help || 40kmessage -h   # Display this help message'
     puts '  40kmessage -gs -sir                  # Display specific repos not updated in >= 1 year. List is in ListRepos module'
     puts '  40kmessage -gs -ir                   # Display all repos not updated in >= 1 year'
+    puts '  40kmessage -gs -repos                # Display all repos not updated in >= 1 year'
+    puts '  40kmessage -gs -prepos               # Display all repos not updated in >= 1 year'
     puts '  40kmessage -t -imp                   # Imperium quote'
     puts '  40kmessage -t -mec                   # Adeptus Mechanicus quote'
     puts '  40kmessage -t -ork                   # Ork quote'
