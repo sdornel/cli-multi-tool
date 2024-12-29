@@ -57,8 +57,6 @@ else
     puts ''
     puts "---------------------------------------------------------------------"
     puts ''
-    # useful info goes here
-    # another switch statement?
     if ARGV[0] == '-power'
         SystemInfo.battery_level
     elsif ARGV[0] == '-temp'
