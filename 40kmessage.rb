@@ -66,6 +66,10 @@ else
             ListRepos.display_specific_inactive_repos
         elsif ARGV[1] == '-ir'
             ListRepos.display_inactive_repos
+        elsif ARGV[1] == '-repos'
+            ListRepos.display_all_repos
+        elsif ARGV[1] == '-prepos'
+            ListRepos.display_all_private_repos
         end
 
     elsif ARGV[0] == '-scrapcode'

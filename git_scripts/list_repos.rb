@@ -33,6 +33,40 @@ module ListRepos
         puts self.fetch_inactive_repos(false)
     end
 
+    def self.display_all_repos
+        puts self.fetch_repos()
+    end
+
+    def self.display_all_private_repos
+        puts self.fetch_repos(true)
+    end
+
+    def self.fetch_repos(private = nil)
+        # github only fetches 30 at a time
+        @client.auto_paginate = true
+        # nil means fetch for currently authenticated user
+
+        repos = @client.repositories(nil, type: 'all')
+        if private.nil?
+            return repos.map do |repo|
+                {
+                    full_name: repo.full_name || 'Unknown',
+                    url: repo.html_url || 'No URL',
+                    private: repo.private,
+                    owner: repo.owner.login || 'Unknown'
+                }
+            end
+        elsif private
+            return repos.select{ |repo| repo.private }.map do |repo|
+                {
+                    full_name: repo.full_name || 'Unknown',
+                    url: repo.html_url || 'No URL',
+                    owner: repo.owner.login || 'Unknown'
+                }
+            end
+        end
+    end
+
     # displays inactive repos (>= 365 days without updates)
     # if "specific" flag set to true it only checks target_repos
     def self.fetch_inactive_repos(specific)
