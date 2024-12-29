@@ -19,8 +19,7 @@ end
 # see https://docs.github.com/en/rest/guides/scripting-with-the-rest-api-and-ruby?apiVersion=2022-11-28
 
 # see if anybody made a pull request in a repo that i am in
-# see if anybody commented on a pull requeust in ^
-# list all of my repos by name and url
+# see if anybody commented on a pull request in ^
 # make a new repo?
 module ListRepos
     @client = Octokit::Client.new(access_token: GITHUB_TOKEN)
