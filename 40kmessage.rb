@@ -9,7 +9,7 @@ require_relative 'quotes/imperium'
 require_relative 'quotes/ork'
 require_relative 'helpers/imperial_date'
 require_relative 'system_info/system_info'
-require_relative 'git_scripts/check_inactive_repos'
+require_relative 'git_scripts/list_repos'
 require_relative 'scrapcode'
 
 ALL_QUOTES = IMPERIUM_QUOTES + ADEPTUS_MECHANICUS_QUOTES + ORK_QUOTES + DARK_MECHANICUM_QUOTES
@@ -20,7 +20,7 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts 'Usage:'
     puts '  40kmessage                           # Show a transmission followed by a random quote'
     puts '  40kmessage --help || 40kmessage -h   # Display this help message'
-    puts '  40kmessage -gs -sir                  # Display specific repos not updated in >= 1 year. List is in CheckInactiveRepos module'
+    puts '  40kmessage -gs -sir                  # Display specific repos not updated in >= 1 year. List is in ListRepos module'
     puts '  40kmessage -gs -ir                   # Display all repos not updated in >= 1 year'
     puts '  40kmessage -t -imp                   # Imperium quote'
     puts '  40kmessage -t -mec                   # Adeptus Mechanicus quote'
@@ -63,9 +63,9 @@ else
         SystemInfo.temperature
     elsif ARGV[0] == '-gs'
         if ARGV[1] == '-sir'
-            CheckInactiveRepos.display_specific_inactive_repos
-        elsif ARGV[1] == 'ir'
-            CheckInactiveRepos.display_inactive_repos
+            ListRepos.display_specific_inactive_repos
+        elsif ARGV[1] == '-ir'
+            ListRepos.display_inactive_repos
         end
 
     elsif ARGV[0] == '-scrapcode'

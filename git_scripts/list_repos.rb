@@ -22,7 +22,7 @@ end
 # see if anybody commented on a pull requeust in ^
 # list all of my repos by name and url
 # make a new repo?
-module CheckInactiveRepos
+module ListRepos
     @client = Octokit::Client.new(access_token: GITHUB_TOKEN)
 
     def self.display_specific_inactive_repos
@@ -36,7 +36,6 @@ module CheckInactiveRepos
     # displays inactive repos (>= 365 days without updates)
     # if "specific" flag set to true it only checks target_repos
     def self.fetch_inactive_repos(specific)
-        puts specific
         target_repos = {
             '1904-text-searcher' => true,
             'fred-plumbing-heating' => true,
@@ -66,7 +65,7 @@ module CheckInactiveRepos
                 last_update: repo.pushed_at
             }
         end
-
+        puts "+++ API CONNECTION SEVERED"
         return filtered_repos
     end
 end
