@@ -1,13 +1,5 @@
-
-
 require 'octokit'
 require 'date'
-require 'dotenv'
-
-Dotenv.load
-
-GITHUB_TOKEN = ENV['GITHUB_TOKEN']
-GITHUB_USERNAME = ENV['GITHUB_USERNAME']
 
 if GITHUB_TOKEN.nil? || GITHUB_TOKEN.empty?
     puts "ERROR: GITHUB_TOKEN cannot be empty! Is the token set in your .env file?"
@@ -23,6 +15,8 @@ end
 # make a new repo?
 module ListRepos
     @client = Octokit::Client.new(access_token: GITHUB_TOKEN)
+    # github only fetches 30 at a time
+    @client.auto_paginate = true
 
     def self.display_specific_inactive_repos
         puts self.fetch_inactive_repos(true)
@@ -41,8 +35,6 @@ module ListRepos
     end
 
     def self.fetch_repos(private = nil)
-        # github only fetches 30 at a time
-        @client.auto_paginate = true
         # nil means fetch for currently authenticated user
 
         repos = @client.repositories(nil, type: 'all')
@@ -79,8 +71,6 @@ module ListRepos
         }
         puts "+++ CONNECTING TO THE GITHUB API +++"
 
-        # github only fetches 30 at a time
-        @client.auto_paginate = true
         # nil means fetch for currently authenticated user
         repos = @client.repositories(nil, type: 'all')
         filtered_repos = repos.each_with_object([]) do |repo, result|
@@ -98,7 +88,7 @@ module ListRepos
                 last_update: repo.pushed_at
             }
         end
-        puts "+++ API CONNECTION SEVERED"
+        puts "+++ API CONNECTION SEVERED +++"
         return filtered_repos
     end
 end
