@@ -82,6 +82,17 @@ else
         elsif ARGV[1] == '-apr'
             PullRequest.get_open_prs
         end
+    elsif ARGV[0] == 'stocks'
+
+    elsif ARGV[0] == 'crypto'
+
+    elsif ARGV[0] == 'curr'
+        # check value of USD. compare with other currencies.
+
+    elsif ARGV[0] == 'weather'
+
+    # elsif ARGV[0] == 'news'
+    # add bunch of categories
 
     elsif ARGV[0] == '-scrapcode'
         Scrapcode.scrapcode
