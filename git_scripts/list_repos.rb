@@ -89,6 +89,6 @@ module ListRepos
             }
         end
         puts "+++ API CONNECTION SEVERED +++"
-        return filtered_repos
+        filtered_repos
     end
 end
