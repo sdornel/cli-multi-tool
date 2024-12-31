@@ -14,7 +14,7 @@ module Weather
         res = Net::HTTP.get_response(uri)
         puts res.body if res.is_a?(Net::HTTPSuccess)
         data = JSON.parse(res.body, symbolize_names: true)
-        puts "Timezone: #{data[:timezone]}"
+        puts "Current Time: #{Time.now} (#{Time.now.zone})"
         puts "Elevation: #{data[:elevation]}"
     end
 end
