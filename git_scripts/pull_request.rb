@@ -9,43 +9,19 @@ module PullRequest
     @client = Octokit::Client.new(access_token: GITHUB_TOKEN)
     @client.auto_paginate = true
     
-    # TODO: add flag that checks for newer PRs
-    def self.get_open_prs()
+    def self.get_open_prs_by_repo_name(repo_owner, repo_name)
         new_prs = []
 
         begin
-            repos = @client.repositories(nil, type: 'all')
-            puts "Checking #{repos.size} repositories for new pull requests..."
-            
-            repos.map do |repo|
-                begin
-                    pull_requests = @client.pull_requests("#{repo.owner.login}/#{repo.name}", state: "open")
-                    if pull_requests.any?
-                        pull_requests.each do |pr|
-                            # Filter out Dependabot PRs
-                            next if pr.user.login == 'dependabot[bot]'
-
-                            new_prs << {
-                                repo: "#{repo[:owner][:login]}/#{repo[:name]}",
-                                pr_number: pr.number,
-                                title: pr.title,
-                                user: pr.user.login,
-                                url: pr.html_url
-                            }
-                        end
-                    end
-                end
+            puts "Fetching open pull requests for repository: #{repo_name}"
+            pull_requests = @client.pull_requests("#{repo_owner}/#{repo_name}", state: 'open')
+            pull_requests.each do |pr|
+                puts "##{pr[:number]} | #{pr[:title]} | #{pr[:user][:login]} | #{pr[:html_url]}"
             end
-
-            puts new_prs
         rescue Octokit::Error => error
-            if error.response
-                puts "Error fetching repositories! Status: #{error.response.status}. Message: #{error.response.data.message}"
+            if error.response_body
+                puts "Error fetching repositories! Message: #{error.response_body}"
             end
         end
-    end
-
-    def self.get_open_prs_by_org
-
     end
 end

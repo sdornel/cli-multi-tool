@@ -30,7 +30,7 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts '  40kmessage -gs -ir                   # Display all repos not updated in >= 1 year'
     puts '  40kmessage -gs -repos                # Display all repos'
     puts '  40kmessage -gs -prepos               # Display all private repos'
-    puts '  40kmessage -gs -apr                  # Display all pull requests'
+    puts '  40kmessage -gs -pr                   # Display all pull requests'
     puts '  40kmessage -t -imp                   # Imperium quote'
     puts '  40kmessage -t -mec                   # Adeptus Mechanicus quote'
     puts '  40kmessage -t -ork                   # Ork quote'
@@ -79,8 +79,8 @@ else
             ListRepos.display_all_repos
         elsif ARGV[1] == '-prepos'
             ListRepos.display_all_private_repos
-        elsif ARGV[1] == '-apr'
-            PullRequest.get_open_prs
+        elsif ARGV[1] == '-pr' # got complicated so just did the simple/fast one. maybe add more capability in future
+            PullRequest.get_open_prs_by_repo_name(ARGV[2], ARGV[3])
         end
     elsif ARGV[0] == 'stocks'
 
