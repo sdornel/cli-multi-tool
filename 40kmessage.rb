@@ -12,11 +12,12 @@ require_relative 'quotes/mechanicus'
 require_relative 'quotes/dark_mechanicum'
 require_relative 'quotes/imperium'
 require_relative 'quotes/ork'
+require_relative 'scrapcode'
 require_relative 'helpers/imperial_date'
 require_relative 'system_info/system_info'
 require_relative 'git_scripts/list_repos'
 require_relative 'git_scripts/pull_request'
-require_relative 'scrapcode'
+require_relative 'weather/weather'
 
 ALL_QUOTES = IMPERIUM_QUOTES + ADEPTUS_MECHANICUS_QUOTES + ORK_QUOTES + DARK_MECHANICUM_QUOTES
 
@@ -89,10 +90,10 @@ else
     elsif ARGV[0] == 'curr'
         # check value of USD. compare with other currencies.
 
-    elsif ARGV[0] == 'weather'
-
-    # elsif ARGV[0] == 'news'
-    # add bunch of categories
+    elsif ARGV[0] == '-weather'
+        Weather.get_weather_forecast
+    elsif ARGV[0] == 'news'
+    # add bunch of categories for news
 
     elsif ARGV[0] == '-scrapcode'
         Scrapcode.scrapcode
