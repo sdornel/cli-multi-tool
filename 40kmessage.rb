@@ -45,7 +45,7 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     exit
 end
 
-if ARGV[0] == '-t' # t = thought for the day
+if ARGV[0] == '-t'
     case ARGV[1]
     when '-imp'
         puts '+++ ' + IMPERIUM_QUOTES.sample + ' +++'
