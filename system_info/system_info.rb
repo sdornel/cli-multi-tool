@@ -2,7 +2,8 @@ require_relative '../helpers/colorable_string/colorable_string'
 using ColorableString
 
 module SystemInfo
-    def self.battery_level
+  extend self
+    def battery_level
         command = 'upower -i $(upower -e)'
         output = `#{command}`
     
@@ -15,7 +16,7 @@ module SystemInfo
         end
     end
 
-    def self.temperature
+    def temperature
         command = 'sensors' # could be more efficient but this will help me learn the commands
         output = `#{command}`
     

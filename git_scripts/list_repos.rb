@@ -1,8 +1,10 @@
 require 'octokit'
 require 'date'
+require_relative '../helpers/colorable_string/colorable_string'
+using ColorableString
 
 if GITHUB_TOKEN.nil? || GITHUB_TOKEN.empty?
-    puts "ERROR: GITHUB_TOKEN cannot be empty! Is the token set in your .env file?"
+    puts 'ERROR: GITHUB_TOKEN cannot be empty! Is the token set in your .env file?'.fg_color(:red)
     exit()
 end
 
@@ -14,53 +16,45 @@ end
 # see if anybody commented on a pull request in ^
 # make a new repo?
 module ListRepos
+    extend self
     @client = Octokit::Client.new(access_token: GITHUB_TOKEN)
     # github only fetches 30 at a time
     @client.auto_paginate = true
 
-    def self.display_specific_inactive_repos
-        puts self.fetch_inactive_repos(true)
+    def display_specific_inactive_repos
+        puts fetch_inactive_repos(true)
     end
 
-    def self.display_inactive_repos()
-        puts self.fetch_inactive_repos(false)
+    def display_inactive_repos()
+        puts fetch_inactive_repos(false)
     end
 
-    def self.display_all_repos
-        puts self.fetch_repos()
+    def display_all_repos
+        puts fetch_repos()
     end
 
-    def self.display_all_private_repos
-        puts self.fetch_repos(true)
+    def display_all_private_repos
+        puts fetch_repos(true)
     end
 
-    def self.fetch_repos(private = nil)
+    def fetch_repos(private = nil)
         # nil means fetch for currently authenticated user
 
         repos = @client.repositories(nil, type: 'all')
         if private.nil?
             return repos.map do |repo|
-                {
-                    full_name: repo.full_name || 'Unknown',
-                    url: repo.html_url || 'No URL',
-                    private: repo.private,
-                    owner: repo.owner.login || 'Unknown'
-                }
+                format_repo_info(repo, private)
             end
         elsif private
-            return repos.select{ |repo| repo.private }.map do |repo|
-                {
-                    full_name: repo.full_name || 'Unknown',
-                    url: repo.html_url || 'No URL',
-                    owner: repo.owner.login || 'Unknown'
-                }
+            repos.select{ |repo| repo.private }.map do |repo|
+                format_repo_info(repo, private)
             end
         end
     end
 
     # displays inactive repos (>= 365 days without updates)
     # if "specific" flag set to true it only checks target_repos
-    def self.fetch_inactive_repos(specific)
+    def fetch_inactive_repos(specific)
         target_repos = {
             '1904-text-searcher' => true,
             'fred-plumbing-heating' => true,
@@ -68,7 +62,7 @@ module ListRepos
             'air-quality-app-react-frontend-only' => true,
             'retrieve-stock-market-data' => true,
             'algorithms' => true
-        }
+        }.freeze
 
         # nil means fetch for currently authenticated user
         repos = @client.repositories(nil, type: 'all')
@@ -88,5 +82,16 @@ module ListRepos
             }
         end
         filtered_repos
+    end
+
+    def format_repo_info(repo, private)
+        separator = '-' * 40
+        <<~INFO
+          #{separator}
+          #{'Repository:'.fg_color(:yellow)} #{repo.full_name.fg_color(:green)}
+          #{'URL:'.fg_color(:yellow)} #{repo.html_url.fg_color(:cyan)}
+          #{'Owner:'.fg_color(:yellow)} #{repo.owner.login.fg_color(:green)}
+          #{"#{'Private:'.fg_color(:yellow)} #{repo.private ? 'Yes'.fg_color(:red) : 'No'.fg_color(:green)}" unless private}
+        INFO
     end
 end

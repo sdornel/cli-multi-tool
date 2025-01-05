@@ -3,7 +3,8 @@ require 'json'
 require 'time'
 
 module Weather
-    def self.get_location_from_ip
+    extend self
+    def get_location_from_ip
         uri = URI.parse('http://ip-api.com/json/') # 45 requests per minute as of 30/12/2024
         URI.open(uri) do |response|
             data = JSON.parse(response.read)
@@ -11,7 +12,7 @@ module Weather
         end
     end
 
-    def self.get_weather_forecast
+    def get_weather_forecast
         location = get_location_from_ip
         uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m&timezone=auto&daily=")
         res = Net::HTTP.get_response(uri)

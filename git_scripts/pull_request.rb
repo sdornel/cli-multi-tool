@@ -6,10 +6,11 @@ if GITHUB_TOKEN.nil? || GITHUB_TOKEN.empty?
 end
 
 module PullRequest
+    extend self
     @client = Octokit::Client.new(access_token: GITHUB_TOKEN)
     @client.auto_paginate = true
     
-    def self.get_open_prs_by_repo_name(repo_owner, repo_name)
+    def get_open_prs_by_repo_name(repo_owner, repo_name)
         new_prs = []
 
         begin
