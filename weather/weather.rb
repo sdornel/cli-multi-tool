@@ -1,6 +1,7 @@
 require 'open-uri'
 require 'json'
 require 'time'
+using ColorableString
 
 module Weather
     extend self
@@ -18,27 +19,24 @@ module Weather
         res = Net::HTTP.get_response(uri)
         data = JSON.parse(res.body, symbolize_names: true)
 
-        puts "7 Day Weather Forecast Report"
+        puts "7 Day Weather Forecast Report".fg_color(:cyan)
         data[:hourly][:time].each_with_index do |time, index|
             formatted_time = Time.parse(time).strftime('%b %d, %H:%M')
+            output = "| #{formatted_time.fg_color(:purple)} " \
+                    "| 🌡️ Temp: " + "#{data[:hourly][:temperature_2m][index]}°C".fg_color(:green) + " " \
+                    "| 🥶 Feels Like: " + "#{data[:hourly][:apparent_temperature][index]}°C".fg_color(:blue) + " " \
+                    "| 💨 Wind: " + "#{data[:hourly][:wind_speed_10m][index]} km/h".fg_color(:cyan)
+            
             if data[:hourly][:visibility][index] <= 1000
-                puts "| 🕒 #{formatted_time} " \
-                        "| 🌡️ Temp: #{data[:hourly][:temperature_2m][index]}°C " \
-                        "| 🥶 Feels Like: #{data[:hourly][:apparent_temperature][index]}°C " \
-                        "| 💨 Wind: #{data[:hourly][:wind_speed_10m][index]} km/h" \
-                        "| 👀 Visibility: #{data[:hourly][:visibility][index]}m |"
-            else
-                puts "| 🕒 #{formatted_time} " \
-                        "| 🌡️ Temp: #{data[:hourly][:temperature_2m][index]}°C " \
-                        "| 🥶 Feels Like: #{data[:hourly][:apparent_temperature][index]}°C " \
-                        "| 💨 Wind: #{data[:hourly][:wind_speed_10m][index]} km/h |"
+                output += " | 👀 Visibility: " + "#{data[:hourly][:visibility][index]}m".fg_color(:red)
             end
+            puts output
         end
         puts ''
-        puts "Latitude: #{location[:lat]}, Longitude: #{location[:lon]}"
-        puts "Current Time: #{Time.now} (#{Time.now.zone})"
-        puts "Elevation: #{data[:elevation]}"
-        puts "Current Temperature: #{data[:current][:temperature_2m]}#{data[:current_units][:apparent_temperature]}"
-        puts "Feels Like: #{data[:current][:apparent_temperature]}#{data[:current_units][:apparent_temperature]}"
+        puts "Latitude: #{location[:lat]}, Longitude: #{location[:lon]}".fg_color(:light_brown)
+        puts "Current Time: #{Time.now} (#{Time.now.zone})".fg_color(:purple)
+        puts "Elevation: #{data[:elevation]}".fg_color(:orange)
+        print "Current Temperature: #{data[:current][:temperature_2m]}#{data[:current_units][:apparent_temperature]} ".fg_color(:green)
+        puts "(Feels Like: #{data[:current][:apparent_temperature]}#{data[:current_units][:apparent_temperature]})".fg_color(:blue)
     end
 end
