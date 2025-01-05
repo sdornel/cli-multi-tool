@@ -89,7 +89,7 @@ module ListRepos
           #{separator}
           #{'Repository:'.fg_color(:yellow)} #{repo.full_name.fg_color(:green)}
           #{'URL:'.fg_color(:yellow)} #{repo.html_url.fg_color(:cyan)}
-          #{'Owner:'.fg_color(:yellow)} #{repo.owner.login.fg_color(:green)}
+          #{'Owner:'.fg_color(:yellow)} #{repo.owner.login.fg_color(:orange)}
           #{"#{'Private:'.fg_color(:yellow)} #{repo.private ? 'Yes'.fg_color(:red) : 'No'.fg_color(:green)}" unless private}
         INFO
     end
