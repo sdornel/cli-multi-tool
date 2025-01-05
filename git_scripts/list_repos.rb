@@ -1,6 +1,5 @@
 require 'octokit'
 require 'date'
-require_relative '../helpers/colorable_string/colorable_string'
 using ColorableString
 
 if GITHUB_TOKEN.nil? || GITHUB_TOKEN.empty?
