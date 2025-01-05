@@ -69,7 +69,6 @@ module ListRepos
             'retrieve-stock-market-data' => true,
             'algorithms' => true
         }
-        puts "+++ CONNECTING TO THE GITHUB API +++"
 
         # nil means fetch for currently authenticated user
         repos = @client.repositories(nil, type: 'all')
@@ -88,7 +87,6 @@ module ListRepos
                 last_update: repo.pushed_at
             }
         end
-        puts "+++ API CONNECTION SEVERED +++"
         filtered_repos
     end
 end
