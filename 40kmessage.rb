@@ -33,7 +33,7 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts '  40kmessage -gs -prepos                   # Display all private repos'
     puts '  40kmessage -gs -pr -repo-owner repo-name # Display all pull requests for a repository'
     puts '  40kmessage -weather                      # Display weather info for your location'
-    # add another where you specify latitudue and longitude?
+    puts '  40kmessage -weather London               # Display weather info for chosen location. Many locations are not unique and you will be prompted to specify further'
     puts '  40kmessage -t -imp                       # Imperium quote'
     puts '  40kmessage -t -mec                       # Adeptus Mechanicus quote'
     puts '  40kmessage -t -ork                       # Ork quote'
@@ -95,7 +95,11 @@ else
         # check value of USD. compare with other currencies.
 
     elsif ARGV[0] == '-weather'
-        Weather.get_weather_forecast
+        if ARGV[1] # means a city was included
+            Weather.get_weather_forecast(ARGV[1])
+        else
+            Weather.get_weather_forecast
+        end
     elsif ARGV[0] == 'news'
     # add bunch of categories for news
 

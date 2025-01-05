@@ -14,13 +14,29 @@ module Weather
     end
 
     def get_custom_location(city)
-        # get custom location
-        uri = URI.parse("https://geocoding-api.open-meteo.com/v1/search?name=#{URI.encode_www_form_component(city)}&count=1&language=en&format=json")
-        uri
+        uri = URI.parse("https://geocoding-api.open-meteo.com/v1/search?name=#{URI.encode_www_form_component(city)}&count=10&language=en&format=json")
+        location_data = URI.open(uri) do |response|
+            data = JSON.parse(response.read)
+            puts data
+            if data['results'] && !data['results'].empty?
+                puts "Multiple locations found for '#{city}':".fg_color(:yellow)
+                data['results'].each_with_index do |result, index|
+                    puts "[#{index + 1}] #{result['name']}, #{result['admin1'] || 'N/A'}, #{result['country']}".fg_color(:cyan)
+                end
+
+                puts "These are the first (10 max) results returned from open-meteo".fg_color(:yellow)
+                print "\nEnter the number of your chosen location: ".fg_color(:green)
+                choice = $stdin.gets.chomp.to_i
+                { lat: data['results'][0]['latitude'], lon: data['results'][0]['longitude'], city: data['results'][0]['name'] }
+            else
+                puts "City '#{city}' not found! open-meteo API might require a different string or the location may not be recognized.".fg_color(:red)
+                exit
+            end
+        end
     end
 
-    def get_weather_forecast
-        location = get_location_from_ip
+    def get_weather_forecast(location = nil)
+        location = location.nil? ? get_location_from_ip : get_custom_location(location)
         uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m&timezone=auto&daily=")
         data = URI.open(uri) do |response|
             JSON.parse(response.read, symbolize_names: true)
