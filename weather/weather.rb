@@ -13,11 +13,18 @@ module Weather
         end
     end
 
+    def get_custom_location(city)
+        # get custom location
+        uri = URI.parse("https://geocoding-api.open-meteo.com/v1/search?name=#{URI.encode_www_form_component(city)}&count=1&language=en&format=json")
+        uri
+    end
+
     def get_weather_forecast
         location = get_location_from_ip
         uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m&timezone=auto&daily=")
-        res = Net::HTTP.get_response(uri)
-        data = JSON.parse(res.body, symbolize_names: true)
+        data = URI.open(uri) do |response|
+            JSON.parse(response.read, symbolize_names: true)
+        end
 
         puts "7 Day Weather Forecast Report".fg_color(:cyan)
         data[:hourly][:time].each_with_index do |time, index|
