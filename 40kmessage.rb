@@ -95,6 +95,7 @@ else
         # check value of USD. compare with other currencies.
 
     elsif ARGV[0] == '-weather'
+        # TODO: pick number of days you want to see
         if ARGV[1] # means a city was included
             Weather.get_weather_forecast(ARGV[1])
         else
