@@ -81,7 +81,7 @@ else
         if ARGV[1] == '-sir'
             ListRepos.display_specific_inactive_repos
         elsif ARGV[1] == '-ir'
-                        # add scanning repos for outdated dependencies?
+                        # add scanning repos for outdated dependencies? i saw this idea somewhere in the docs?
             ListRepos.display_inactive_repos
         elsif ARGV[1] == '-repos'
             ListRepos.display_all_repos
