@@ -35,14 +35,7 @@ module Weather
         end
     end
 
-    def get_weather_forecast(location = nil)
-        location = location.nil? ? get_location_from_ip : get_custom_location(location)
-        uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m&timezone=auto&daily=")
-        data = URI.open(uri) do |response|
-            JSON.parse(response.read, symbolize_names: true)
-        end
-
-        puts "7 Day Weather Forecast Report".fg_color(:cyan)
+    def display_weather_data(data, location)
         data[:hourly][:time].each_with_index do |time, index|
             formatted_time = Time.parse(time).strftime('%b %d, %H:%M')
             output = "| #{formatted_time.fg_color(:pink)} " \
@@ -55,11 +48,40 @@ module Weather
             end
             puts output
         end
-        puts ''
-        puts "Latitude: #{location[:lat]}, Longitude: #{location[:lon]}".fg_color(:light_brown)
+        puts "\nLatitude: #{location[:lat]}, Longitude: #{location[:lon]}".fg_color(:light_brown)
         puts "Current Time: #{Time.now} (#{Time.now.zone})".fg_color(:purple)
         puts "Elevation: #{data[:elevation]}".fg_color(:orange)
         print "Current Temperature: #{data[:current][:temperature_2m]}#{data[:current_units][:apparent_temperature]} ".fg_color(:green)
         puts "(Feels Like: #{data[:current][:apparent_temperature]}#{data[:current_units][:apparent_temperature]})".fg_color(:blue)
+    end
+
+    def get_weather_forecast_week(location = nil)
+        location = location.nil? ? get_location_from_ip : get_custom_location(location)
+        uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m&timezone=auto") # if error add &daily= back to end
+        data = URI.open(uri) do |response|
+            JSON.parse(response.read, symbolize_names: true)
+        end
+        puts "7 Day Weather Forecast Report".fg_color(:cyan)
+        display_weather_data(data, location)
+    end
+
+    def get_weather_forecast_three(location = nil)
+        location = location.nil? ? get_location_from_ip : get_custom_location(location)
+        uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m&timezone=auto&forecast_days=3")
+        data = URI.open(uri) do |response|
+            JSON.parse(response.read, symbolize_names: true)
+        end
+        puts "3 Day Weather Forecast Report".fg_color(:cyan)
+        display_weather_data(data, location)
+    end
+
+    def get_weather_forecast_day(location = nil)
+        location = location.nil? ? get_location_from_ip : get_custom_location(location)
+        uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m&timezone=auto&forecast_days=1")
+        data = URI.open(uri) do |response|
+            JSON.parse(response.read, symbolize_names: true)
+        end
+        puts "1 Day Weather Forecast Report".fg_color(:cyan)
+        display_weather_data(data, location)
     end
 end
