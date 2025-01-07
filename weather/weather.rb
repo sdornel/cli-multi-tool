@@ -45,7 +45,7 @@ module Weather
         puts "7 Day Weather Forecast Report".fg_color(:cyan)
         data[:hourly][:time].each_with_index do |time, index|
             formatted_time = Time.parse(time).strftime('%b %d, %H:%M')
-            output = "| #{formatted_time.fg_color(:purple)} " \
+            output = "| #{formatted_time.fg_color(:pink)} " \
                     "| 🌡️ Temp: " + "#{data[:hourly][:temperature_2m][index]}°C".fg_color(:green) + " " \
                     "| 🥶 Feels Like: " + "#{data[:hourly][:apparent_temperature][index]}°C".fg_color(:blue) + " " \
                     "| 💨 Wind: " + "#{data[:hourly][:wind_speed_10m][index]} km/h".fg_color(:cyan)
