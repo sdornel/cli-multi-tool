@@ -90,7 +90,6 @@ else
         elsif ARGV[1] == '-pr' # got complicated so just did the simple/fast one. maybe add more capability in future
             PullRequest.get_open_prs_by_repo_name(ARGV[2], ARGV[3])
         end
-        # consider adding color coding for better readability instead of relying on emojis!
     elsif ARGV[0] == 'stocks'
 
     elsif ARGV[0] == 'crypto'
