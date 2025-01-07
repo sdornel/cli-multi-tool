@@ -94,12 +94,23 @@ else
     elsif ARGV[0] == 'curr'
         # check value of USD. compare with other currencies.
 
-    elsif ARGV[0] == '-weather'
-        # TODO: pick number of days you want to see
+    elsif ARGV[0] == '-weather7'
         if ARGV[1] # means a city was included
-            Weather.get_weather_forecast(ARGV[1])
+            Weather.get_weather_forecast_week(ARGV[1])
         else
-            Weather.get_weather_forecast
+            Weather.get_weather_forecast_week
+        end
+    elsif ARGV[0] == '-weather3'
+        if ARGV[1]
+            Weather.get_weather_forecast_three(ARGV[1])
+        else
+            Weather.get_weather_forecast_three
+        end
+    elsif ARGV[0] == '-weather'
+        if ARGV[1]
+            Weather.get_weather_forecast_day(ARGV[1])
+        else
+            Weather.get_weather_forecast_day
         end
     elsif ARGV[0] == 'news'
     # add bunch of categories for news
