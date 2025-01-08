@@ -5,7 +5,7 @@ using ColorableString
 module EvaluateCurrency
     extend self
     def retrieve_currency_values(currency)
-        uri = URI.parse("https://v6.exchangerate-api.com/v6/4b2a0b71e549a4ef6429c4ec/latest/#{currency}")
+        uri = URI.parse("https://v6.exchangerate-api.com/v6/#{EXCHANGERATE_KEY}/latest/#{currency}")
         currency_hash = {}
         URI.open(uri) do |response|
             data = JSON.parse(response.read)

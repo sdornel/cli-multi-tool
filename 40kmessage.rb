@@ -6,7 +6,7 @@ require 'dotenv'
 Dotenv.load
 GITHUB_TOKEN = ENV['GITHUB_TOKEN']
 GITHUB_USERNAME = ENV['GITHUB_USERNAME']
-
+EXCHANGERATE_KEY = ENV['EXCHANGERATE_KEY']
 require_relative 'quotes/imperium'
 require_relative 'quotes/mechanicus'
 require_relative 'quotes/dark_mechanicum'
