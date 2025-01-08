@@ -18,6 +18,7 @@ require_relative 'system_info/system_info'
 require_relative 'git_scripts/list_repos'
 require_relative 'git_scripts/pull_request'
 require_relative 'weather/weather'
+require_relative 'finance/evaluate_currency'
 
 ALL_QUOTES = IMPERIUM_QUOTES + ADEPTUS_MECHANICUS_QUOTES + ORK_QUOTES + DARK_MECHANICUM_QUOTES
 
@@ -89,13 +90,17 @@ else
         elsif ARGV[1] == '-pr' # got complicated so just did the simple/fast one. maybe add more capability in future
             PullRequest.get_open_prs_by_repo_name(ARGV[2], ARGV[3])
         end
-    elsif ARGV[0] == 'stocks'
+    elsif ARGV[0] == '-stocks'
 
-    elsif ARGV[0] == 'crypto'
+    elsif ARGV[0] == '-crypto'
 
-    elsif ARGV[0] == 'curr'
-        # check value of USD. compare with other currencies.
-
+    elsif ARGV[0] == '-curr'
+        # fetch and compare currency values
+        if ARGV[1]
+            EvaluateCurrency.retrieve_currency_values(ARGV[1])
+        else
+            EvaluateCurrency.retrieve_currency_values('USD')
+        end
     elsif ARGV[0] == '-weather7'
         if ARGV[1] # means a city was included
             Weather.get_weather_forecast_week(ARGV[1])
