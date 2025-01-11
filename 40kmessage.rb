@@ -19,6 +19,7 @@ require_relative 'git_scripts/list_repos'
 require_relative 'git_scripts/pull_request'
 require_relative 'weather/weather'
 require_relative 'finance/evaluate_currency'
+require_relative 'rename_files/rename_files'
 
 ALL_QUOTES = IMPERIUM_QUOTES + ADEPTUS_MECHANICUS_QUOTES + ORK_QUOTES + DARK_MECHANICUM_QUOTES
 
@@ -120,9 +121,10 @@ else
             Weather.get_weather_forecast_day
         end
     # elsif mass rename files in a folder
-    elsif ARGV[0] == 'news'
+    elsif ARGV[0] == '-news'
     # add bunch of categories for news
-
+    elsif ARGV[0] == '-rename-files'
+        RenameFile.rename_files_with_sequential_naming_pattern
     elsif ARGV[0] == '-scrapcode'
         Scrapcode.scrapcode
     else
