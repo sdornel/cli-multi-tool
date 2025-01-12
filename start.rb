@@ -25,7 +25,7 @@ ALL_QUOTES = IMPERIUM_QUOTES + ADEPTUS_MECHANICUS_QUOTES + ORK_QUOTES + DARK_MEC
 
 # imperorkium_quotes as the name?
 if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || ARGV.include?('-h')
-    puts 'Warhammer 40K Quotes CLI'
+    puts 'Ruby Multi Tool CLI'
     puts 'Usage:'
     puts '  40kmessage                               # Show a transmission followed by a random quote'
     puts '  40kmessage --help || 40kmessage -h       # Display this help message'
