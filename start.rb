@@ -124,7 +124,7 @@ else
     elsif ARGV[0] == '-news'
     # add bunch of categories for news
     elsif ARGV[0] == '-rename-files'
-        RenameFile.rename_files_with_sequential_naming_pattern
+        RenameFile.change_filename_text
     elsif ARGV[0] == '-scrapcode'
         Scrapcode.scrapcode
     else
