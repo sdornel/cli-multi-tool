@@ -27,27 +27,29 @@ ALL_QUOTES = IMPERIUM_QUOTES + ADEPTUS_MECHANICUS_QUOTES + ORK_QUOTES + DARK_MEC
 if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || ARGV.include?('-h')
     puts 'Ruby Multi Tool CLI'
     puts 'Usage:'
-    puts '  40kmessage                               # Show a transmission followed by a random quote'
-    puts '  40kmessage --help || 40kmessage -h       # Display this help message'
-    puts '  40kmessage -gs -sir                      # Display specific repos not updated in >= 1 year. List is in ListRepos module'
-    puts '  40kmessage -gs -ir                       # Display all repos not updated in >= 1 year'
-    puts '  40kmessage -gs -repos                    # Display all repos'
-    puts '  40kmessage -gs -prepos                   # Display all private repos'
-    puts '  40kmessage -gs -pr -repo-owner repo-name # Display all pull requests for a repository'
-    puts '  40kmessage -weather7                     # Display weather info for your location (7 day forecast)'
-    puts '  40kmessage -weather3                     # Display weather info for your location (7 day forecast)'
-    puts '  40kmessage -weather                      # Display weather info for your location (current day)'
-    puts '  40kmessage -weather London               # Display weather info for chosen location. Many locations are not unique and you will be prompted to specify further'
-    puts '  40kmessage -weather3 London              # Display weather info for chosen location. Many locations are not unique and you will be prompted to specify further'
-    puts '  40kmessage -weather7 London              # Display weather info for chosen location. Many locations are not unique and you will be prompted to specify further'
-    puts '  40kmessage -t -imp                       # Imperium quote'
-    puts '  40kmessage -t -mec                       # Adeptus Mechanicus quote'
-    puts '  40kmessage -t -ork                       # Ork quote'
-    puts '  40kmessage -t -dme                       # Dark Mechanicum quote'
-    puts '  40kmessage -t                            # Random 40k quote from list'
-    puts '  40kmessage -power                        # Power Status Report'
-    puts '  40kmessage -temp                         # Temperature Report'
-    puts '  40kmessage -scrapcode                    # Temperature Report'
+    puts '  40kmessage                    # Show a transmission followed by a random quote'
+    puts '  --help || -h                  # Display this help message'
+    puts '  -gs -sir                      # Display specific repos not updated in >= 1 year. List is in ListRepos module'
+    puts '  -gs -ir                       # Display all repos not updated in >= 1 year'
+    puts '  -gs -repos                    # Display all repos'
+    puts '  -gs -prepos                   # Display all private repos'
+    puts '  -gs -pr -repo-owner repo-name # Display all pull requests for a repository'
+    puts '  -weather7                     # Display weather info for your location (7 day forecast)'
+    puts '  -weather3                     # Display weather info for your location (7 day forecast)'
+    puts '  -weather                      # Display weather info for your location (current day)'
+    puts '  -weather London               # Display weather info for chosen location. Many locations are not unique and you will be prompted to specify further'
+    puts '  -weather3 London              # Display weather info for chosen location. Many locations are not unique and you will be prompted to specify further'
+    puts '  -weather7 London              # Display weather info for chosen location. Many locations are not unique and you will be prompted to specify further'
+    puts '  -temp                         # Temperature Report'
+    puts '  -power                        # Power Status Report'
+    puts '  -rename-files                 # Single/bulk renaming of files'
+    puts '  -change-file-ext              # Changes file extension'
+    puts '  40kmessage -t -imp            # Imperium quote'
+    puts '  40kmessage -t -mec            # Adeptus Mechanicus quote'
+    puts '  40kmessage -t -ork            # Ork quote'
+    puts '  40kmessage -t -dme            # Dark Mechanicum quote'
+    puts '  40kmessage -t                 # Random 40k quote from list'
+    puts '  40kmessage -scrapcode         # Scrapcode thing that I should make more dynamic and random'
     exit
 end
 
@@ -125,6 +127,9 @@ else
     # add bunch of categories for news
     elsif ARGV[0] == '-rename-files'
         RenameFile.change_filename_text
+    elsif ARGV[0] == '-change-ext' # create way to change extension of specific files?
+        RenameFile.change_file_ext
+    
     elsif ARGV[0] == '-scrapcode'
         Scrapcode.scrapcode
     else

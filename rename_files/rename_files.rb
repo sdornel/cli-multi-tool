@@ -1,11 +1,12 @@
 module RenameFile
     extend self
+
     def change_filename_text
         puts 'Enter the directory. Default is current directory.'
         directory = $stdin.gets.chomp
         directory = "." if directory.empty?
 
-        puts 'Enter file extension (.mp3, .odt, .txt) or leave blank.'
+        puts 'Enter file extension (.mp3, .odt, .txt, etc) or leave blank.'
         file_extension = $stdin.gets.chomp
 
         puts 'Enter text you want replaced.'
@@ -24,6 +25,26 @@ module RenameFile
             new_base_name = base_name.gsub(old_text, new_text)
             new_file_path = File.join(dir_name, new_base_name)
     
+            File.rename(file_path, new_file_path)
+        end
+    end
+
+    def change_file_ext
+        puts 'Enter the directory. Default is current directory.'
+        directory = $stdin.gets.chomp
+        directory = "." if directory.empty?
+
+        puts 'Enter file extension you want to replace.'
+        old_extension = $stdin.gets.chomp
+
+        puts 'Enter new file extension'
+        new_extension = $stdin.gets.chomp
+
+        Dir.glob("#{directory}/*#{old_extension}").each do |file_path|
+            dir_name = File.dirname(file_path)
+            base_name = File.basename(file_path)
+
+            new_file_path = file_path.gsub(old_extension, new_extension)
             File.rename(file_path, new_file_path)
         end
     end
