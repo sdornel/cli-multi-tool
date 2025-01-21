@@ -40,12 +40,25 @@ module Weather
             formatted_time = Time.parse(time).strftime('%b %d, %H:%M')
             output = "| #{formatted_time.fg_color(:pink)} " \
                     "| 🌡️ Temp: " + "#{data[:hourly][:temperature_2m][index]}°C".fg_color(:green) + " " \
-                    "| 🥶 Feels Like: " + "#{data[:hourly][:apparent_temperature][index]}°C".fg_color(:blue) + " " \
-                    "| 💨 Wind: " + "#{data[:hourly][:wind_speed_10m][index]} km/h".fg_color(:cyan)
+                    "| 🥶 Feels Like: " + "#{data[:hourly][:apparent_temperature][index]}°C".fg_color(:gold) + " " \
+                    "| 🌪️ Wind: " + "#{data[:hourly][:wind_speed_10m][index]} km/h".fg_color(:cyan)
             
             if data[:hourly][:visibility][index] <= 1000
                 output += " | 👀 Visibility: " + "#{data[:hourly][:visibility][index]}m".fg_color(:red)
             end
+
+            if data[:hourly][:snowfall][index] > 0
+                output += " | 🌨️ Snowfall: " + "#{data[:hourly][:snowfall][index]}cm".fg_color(:blue) + " " \
+            end
+
+            if data[:hourly][:snow_depth][index] > 0
+                output += " | 📏 Snow Depth: " + "#{data[:hourly][:snow_depth][index]}cm".fg_color(:light_orange) + " " \
+            end
+            
+            if data[:hourly][:rain][index] > 0
+                output += " | ⛈️ Rain: " + "#{data[:hourly][:rain][index]}cm".fg_color(:blue) + " " \
+            end
+
             puts output
         end
         puts "\nLatitude: #{location[:lat]}, Longitude: #{location[:lon]}".fg_color(:light_brown)
@@ -57,7 +70,7 @@ module Weather
 
     def get_weather_forecast_week(location = nil)
         location = location.nil? ? get_location_from_ip : get_custom_location(location)
-        uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m&timezone=auto") # if error add &daily= back to end
+        uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature,snowfall,snow_depth,rain&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m,snowfall,snow_depth,rain&timezone=auto") # if error add &daily= back to end
         data = URI.open(uri) do |response|
             JSON.parse(response.read, symbolize_names: true)
         end
@@ -67,7 +80,7 @@ module Weather
 
     def get_weather_forecast_three(location = nil)
         location = location.nil? ? get_location_from_ip : get_custom_location(location)
-        uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m&timezone=auto&forecast_days=3")
+        uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature,snowfall,snow_depth,rain&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m,snowfall,snow_depth,rain&timezone=auto&forecast_days=3")
         data = URI.open(uri) do |response|
             JSON.parse(response.read, symbolize_names: true)
         end
@@ -77,7 +90,7 @@ module Weather
 
     def get_weather_forecast_day(location = nil)
         location = location.nil? ? get_location_from_ip : get_custom_location(location)
-        uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m&timezone=auto&forecast_days=1")
+        uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{location[:lat]}&longitude=#{location[:lon]}&current=temperature_2m,apparent_temperature,snowfall,snow_depth,rain&hourly=temperature_2m,apparent_temperature,visibility,wind_speed_10m,snowfall,snow_depth,rain&timezone=auto&forecast_days=1")
         data = URI.open(uri) do |response|
             JSON.parse(response.read, symbolize_names: true)
         end
