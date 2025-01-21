@@ -128,8 +128,7 @@ else
     elsif ARGV[0] == '-rename-files'
         RenameFile.change_filename_text
     elsif ARGV[0] == '-change-ext' # create way to change extension of specific files?
-        RenameFile.change_file_ext
-    
+        RenameFile.change_file_ext    
     elsif ARGV[0] == '-scrapcode'
         Scrapcode.scrapcode
     else
