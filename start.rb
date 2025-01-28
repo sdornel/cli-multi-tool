@@ -20,6 +20,7 @@ require_relative 'git_scripts/pull_request'
 require_relative 'weather/weather'
 require_relative 'finance/evaluate_currency'
 require_relative 'rename_files/rename_files'
+require_relative 'finance/stocks'
 
 ALL_QUOTES = IMPERIUM_QUOTES + ADEPTUS_MECHANICUS_QUOTES + ORK_QUOTES + DARK_MECHANICUM_QUOTES
 
@@ -96,7 +97,7 @@ else
             PullRequest.get_open_prs_by_repo_name(ARGV[2], ARGV[3])
         end
     elsif ARGV[0] == '-stocks'
-
+        # Stocks
     elsif ARGV[0] == '-crypto'
 
     elsif ARGV[0] == '-curr'
