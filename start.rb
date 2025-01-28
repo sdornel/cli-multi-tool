@@ -34,6 +34,8 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts '  -gs -repos                    # Display all repos'
     puts '  -gs -prepos                   # Display all private repos'
     puts '  -gs -pr -repo-owner repo-name # Display all pull requests for a repository'
+    puts '  -curr                         # Show exchange rates with USD as base'
+    puts '  -curr -currency_name          # Show exchange rates with chosen currency as base'
     puts '  -weather7                     # Display weather info for your location (7 day forecast)'
     puts '  -weather3                     # Display weather info for your location (7 day forecast)'
     puts '  -weather                      # Display weather info for your location (current day)'
@@ -125,6 +127,7 @@ else
     # elsif mass rename files in a folder
     elsif ARGV[0] == '-news'
     # add bunch of categories for news
+
     elsif ARGV[0] == '-rename-files'
         RenameFile.change_filename_text
     elsif ARGV[0] == '-change-ext' # create way to change extension of specific files?
