@@ -7,6 +7,7 @@ Dotenv.load
 GITHUB_TOKEN = ENV['GITHUB_TOKEN']
 GITHUB_USERNAME = ENV['GITHUB_USERNAME']
 EXCHANGERATE_KEY = ENV['EXCHANGERATE_KEY']
+FINNHUB_KEY = ENV['FINNHUB_KEY']
 require_relative 'quotes/imperium'
 require_relative 'quotes/mechanicus'
 require_relative 'quotes/dark_mechanicum'
@@ -37,6 +38,8 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts '  -gs -pr -repo-owner repo-name # Display all pull requests for a repository'
     puts '  -curr                         # Show exchange rates with USD as base'
     puts '  -curr -currency_name          # Show exchange rates with chosen currency as base'
+    puts '  -stocks                       # Display stock info for your list of stocks'
+    # puts chosen stock
     puts '  -weather7                     # Display weather info for your location (7 day forecast)'
     puts '  -weather3                     # Display weather info for your location (7 day forecast)'
     puts '  -weather                      # Display weather info for your location (current day)'
@@ -97,7 +100,11 @@ else
             PullRequest.get_open_prs_by_repo_name(ARGV[2], ARGV[3])
         end
     elsif ARGV[0] == '-stocks'
-        # Stocks
+        # if ARGV[1]
+        #     Stocks.retrieve_specific_stock_data(ARGV[1])
+        # else
+            Stocks.from_list_retrieve_stock_data
+        # end
     elsif ARGV[0] == '-crypto'
 
     elsif ARGV[0] == '-curr'
