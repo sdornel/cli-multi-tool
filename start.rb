@@ -39,6 +39,7 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts '  -curr                         # Show exchange rates with USD as base'
     puts '  -curr -currency_name          # Show exchange rates with chosen currency as base'
     puts '  -stocks                       # Display stock info for your list of stocks'
+    puts '  -stocks -index                # Display stock info only for your list of indexes'
     # puts chosen stock
     puts '  -weather7                     # Display weather info for your location (7 day forecast)'
     puts '  -weather3                     # Display weather info for your location (7 day forecast)'
@@ -100,11 +101,13 @@ else
             PullRequest.get_open_prs_by_repo_name(ARGV[2], ARGV[3])
         end
     elsif ARGV[0] == '-stocks'
-        # if ARGV[1]
-        #     Stocks.retrieve_specific_stock_data(ARGV[1])
-        # else
+        if ARGV[1] === '-index'
+            Stocks.from_list_retrieve_stock_data(ARGV[1])
+        elsif ARGV[1]
+            # retrieve specific stock
+        else
             Stocks.from_list_retrieve_stock_data
-        # end
+        end
     elsif ARGV[0] == '-crypto'
 
     elsif ARGV[0] == '-curr'

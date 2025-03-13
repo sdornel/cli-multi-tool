@@ -63,8 +63,21 @@ module Stocks
         "XLV"    => "Healthcare Sector ETF"
     }
 
-    def from_list_retrieve_stock_data
-        STOCKS.each do |symbol, name|
+    INDEXES = {
+        "SPY"    => "S&P 500 ETF",
+        "QQQ"    => "Nasdaq-100 ETF",
+        "DIA"    => "Dow Jones ETF",
+        "IWM"    => "Russell 2000 ETF",
+        "XLF"    => "Financials Sector ETF",
+        "XLK"    => "Tech Sector ETF",
+        "XLE"    => "Energy Sector ETF",
+        "XLV"    => "Healthcare Sector ETF"
+    }
+
+    def from_list_retrieve_stock_data(index = nil)
+        hash_to_iterate = index ? INDEXES : STOCKS
+
+        hash_to_iterate.each do |symbol, name|
             uri = URI.parse("https://finnhub.io/api/v1/quote?symbol=#{URI.encode_www_form_component(symbol)}&token=#{FINNHUB_KEY}")
             begin
                 URI.open(uri) do |response|
@@ -78,17 +91,18 @@ module Stocks
     end
 
     def display_stock_data(symbol, name, data)
-        change_color = data['d'].to_f >= 0 ? :green : :red
-
-        puts "\n📊 #{symbol} – #{name}".fg_color(:cyan)
+        change_color = data['d'].to_f >= 0 ? :light_green : :light_red
       
-        puts "  #{'Current:'.ljust(12)} $#{data['c']}".fg_color(:light_blue)
-        puts "  #{'Change:'.ljust(12)} $#{data['d']} (#{data['dp']}%)".fg_color(change_color)
+        puts "📊 #{symbol.ljust(6)} – #{name}".fg_color(:cyan)
       
-        puts "  #{'Open:'.ljust(12)} $#{data['o']}".fg_color(:gold) +
-             " | #{'High:'.ljust(6)} $#{data['h']}".fg_color(:green) +
-             " | #{'Low:'.ljust(5)} $#{data['l']}".fg_color(:red)
+        print "  Price: $#{data['c']}  ".fg_color(:light_blue)
+        print "Change: $#{data['d']} (#{data['dp']}%)  ".fg_color(change_color)
+        puts "Prev: $#{data['pc']}".fg_color(:pink)
       
-        puts "  #{'Prev Close:'.ljust(12)} $#{data['pc']}".fg_color(:pink)
-    end
+        print "  Open: $#{data['o']}  ".fg_color(:gold)
+        print "High: $#{data['h']}  ".fg_color(:green)
+        puts "Low: $#{data['l']}".fg_color(:red)
+      
+        puts "-" * 60
+    end      
 end
