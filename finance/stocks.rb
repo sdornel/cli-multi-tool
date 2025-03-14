@@ -92,8 +92,11 @@ module Stocks
 
     def display_stock_data(symbol, name, data)
         change_color = data['d'].to_f >= 0 ? :light_green : :light_red
-      
-        puts "📊 #{symbol.ljust(6)} – #{name}".fg_color(:cyan)
+        if name
+            puts "📊 #{symbol} – #{name}".fg_color(:cyan)
+        else
+            puts "📊 #{symbol}".fg_color(:cyan)
+        end
       
         print "  Price: $#{data['c']}  ".fg_color(:light_blue)
         print "Change: $#{data['d']} (#{data['dp']}%)  ".fg_color(change_color)
@@ -104,5 +107,18 @@ module Stocks
         puts "Low: $#{data['l']}".fg_color(:red)
       
         puts "-" * 60
-    end      
+    end
+
+    def retrieve_specific_stock_data(symbol)
+        formatted_symbol = symbol[1..]
+        uri = URI.parse("https://finnhub.io/api/v1/quote?symbol=#{URI.encode_www_form_component(formatted_symbol)}&token=#{FINNHUB_KEY}")
+        begin
+            URI.open(uri) do |response|
+                data = JSON.parse(response.read)
+                display_stock_data(formatted_symbol, STOCKS[formatted_symbol], data)
+            end
+        rescue => e
+            puts "⚠️ Failed to fetch data for #{STOCKS[formatted_symbol]} (#{formatted_symbol}): #{e.message}".fg_color(:red)
+        end
+    end
 end
