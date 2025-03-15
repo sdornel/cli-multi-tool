@@ -109,6 +109,10 @@ else
             Stocks.from_list_retrieve_stock_data
         end
     elsif ARGV[0] == '-crypto'
+        if ARGV[1]
+            # EvaluateCurrency.retrieve_specific_crypto_data(ARGV[1])
+        else
+            # EvaluateCurrency.from_list_retrieve_crypto_data
 
     elsif ARGV[0] == '-curr'
         # fetch and compare currency values
