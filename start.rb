@@ -111,7 +111,7 @@ else
         end
     elsif ARGV[0] == '-crypto'
         if ARGV[1]
-            # EvaluateCurrency.retrieve_specific_crypto_data(ARGV[1])
+            Crypto.retrieve_specific_crypto_data(ARGV[1])
         else
             Crypto.from_list_retrieve_crypto_data
         end
