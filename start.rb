@@ -42,6 +42,8 @@ if ARGV.include?('--help') || ARGV.include?('-help') || ARGV.include?('--h') || 
     puts '  -stocks                       # Display stock info for your list of stocks'
     puts '  -stocks -index                # Display stock info only for your list of indexes'
     puts '  -stocks -JNJ                  # Display stock info only for a specific stock'
+    puts '  -crypto                       # Display crypto info only for your list of coins'
+    puts '  -stocks -bitcoin                  # Display crypto info only for a specific coin'
     puts '  -weather7                     # Display weather info for your location (7 day forecast)'
     puts '  -weather3                     # Display weather info for your location (7 day forecast)'
     puts '  -weather                      # Display weather info for your location (current day)'
