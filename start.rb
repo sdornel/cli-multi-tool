@@ -22,6 +22,7 @@ require_relative 'weather/weather'
 require_relative 'finance/evaluate_currency'
 require_relative 'rename_files/rename_files'
 require_relative 'finance/stocks'
+require_relative 'finance/crypto'
 
 ALL_QUOTES = IMPERIUM_QUOTES + ADEPTUS_MECHANICUS_QUOTES + ORK_QUOTES + DARK_MECHANICUM_QUOTES
 
@@ -112,7 +113,8 @@ else
         if ARGV[1]
             # EvaluateCurrency.retrieve_specific_crypto_data(ARGV[1])
         else
-            # EvaluateCurrency.from_list_retrieve_crypto_data
+            Crypto.from_list_retrieve_crypto_data
+        end
 
     elsif ARGV[0] == '-curr'
         # fetch and compare currency values
