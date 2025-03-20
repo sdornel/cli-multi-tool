@@ -143,7 +143,6 @@ else
         else
             Weather.get_weather_forecast_day
         end
-    # elsif mass rename files in a folder
     elsif ARGV[0] == '-news'
     # add bunch of categories for news
 
